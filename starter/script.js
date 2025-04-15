@@ -39,7 +39,6 @@ const switchPlayer = function () {
 btnRoll.addEventListener('click', function () {
   // 1. Generate a random dice roll
   const dice = Math.trunc(Math.random() * 6) + 1;
-  console.log(dice);
   // 2. display the dice
   diceEl.classList.remove('hidden');
 
@@ -54,11 +53,6 @@ btnRoll.addEventListener('click', function () {
       currentScore; //a more dynamic way to select the element
   } else {
     //if true, switch to next player
-    // document.getElementById(`current--${activePlayer}`).textContent = 0;
-    // currentScore = 0;
-    // activePlayer = activePlayer === 0 ? 1 : 0;
-    // player0El.classList.toggle('player--active'); //toggle will add the class if it is not there or remove the class if it is there
-    // player1El.classList.toggle('player--active');
     switchPlayer();
   }
 });
@@ -73,7 +67,15 @@ btnHold.addEventListener('click', function () {
 
   //. 2 check if player's score is >=100
   //finish the game
-
-  // switch to the next player
-  switchPlayer();
+  if (scores[activePlayer] >= 20) {
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.add('player--winner');
+    document
+      .querySelector(`.player--${activePlayer}`)
+      .classList.remove('player--active');
+  } else {
+    // switch to the next player
+    switchPlayer();
+  }
 });
