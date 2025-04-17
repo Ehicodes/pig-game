@@ -16,17 +16,40 @@ const player0El = document.querySelector('.player--0');
 const player1El = document.querySelector('.player--1');
 
 //starting conditions
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add('hidden');
-let totalScore = 0;
+// score0El.textContent = 0;
+// score1El.textContent = 0;
+// diceEl.classList.add('hidden');
 
-const scores = [0, 0];
+//const scores = [0, 0];
 
-let currentScore = 0; //it cannot be inside theh function because each time we click the button, it will be set to 0
-let activePlayer = 0;
+//let currentScore = 0; //it cannot be inside theh function because each time we click the button, it will be set to 0
+//let activePlayer = 0;
 
-const playing = true; // a state variable that tells us the condtion of our game. when the game is playing or not. if the game is playing, we can click all the buttons and it will work but if it isnt, we wont be able to click on the buttons
+//let playing = true; // a state variable that tells us the condtion of our game. when the game is playing or not. if the game is playing, we can click all the buttons and it will work but if it isnt, we wont be able to click on the buttons
+
+//lets a functon that will contain our internal state variables and some other code
+//ALL THESE VARIABLES ARE NOT DEFINED BECAUSE THEY ARE ONLY AVAILABLE TO THE INIT FUNCTION. THEY ARE DECLARED INSIDE THE FUNCTION SO THEY ARE NOT ACCESSIBLE OUTSIDE THE FUNCTON. THEY ARE SCOPED TO THE INIT FUNCTION. THE SOLUTION IS TO DECLARE THESE VARIABLES OUTSIDE OF THE FUNCTION BUT WITHOUT ANY VALUE
+
+let scores, currentScore, activePlayer, playing;
+
+const init = function () {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  diceEl.classList.add('hidden');
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
+};
+
+init(); // to run the function
 
 //function to switch players
 const switchPlayer = function () {
@@ -81,9 +104,40 @@ btnHold.addEventListener('click', function () {
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.remove('player--active');
+      diceEl.classList.add('hidden');
     } else {
       // switch to the next player
       switchPlayer();
     }
   }
 });
+
+//RESETTING THE GAME
+
+// btnNew.addEventListener('click', function () {
+//   playing = true;
+//   currentScore = 0;
+//   document.getElementById(`current--${activePlayer}`).textContent = 0;
+//   document.getElementById(`score--${activePlayer}`).textContent = 0;
+//   player0El.classList.add('player--active');
+//   player1El.classList.remove('player--active');
+//   document
+//     .querySelector(`.player--${activePlayer}`)
+//     .classList.remove('player--winner');
+//   activePlayer = activePlayer === 1 ? 0 : 0;
+//   // player1El.classList.toggle('player--active');
+//   // document
+//   //   .querySelector(`.player--${activePlayer}`)
+//   //   .classList.add('player--active');
+//   diceEl.classList.add('hidden');
+// });
+
+btnNew.addEventListener('click', init);
+// score0El.textContent = 0;
+// score1El.textContent = 0;
+// current0El.textContent = 0;
+// current1El.textContent = 0;
+// player0El.classList.remove('player--winner');
+// player1El.classList.remove('player--winner');
+// player0El.classList.add('player--active');
+// player1El.classList.remove('player--active');
